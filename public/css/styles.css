@@ -1,8 +1,8 @@
 :root {
   /* Color pallete */
-  --black : black;
-  --white : white;
-  --aqua : rgb(0, 160, 185);
+  --black : #252323;
+  --white : #FFFeff;
+  --aqua : #06bd8f;
   --aqua-fade: rgba(240, 248, 255, 0.585);
 
   /*- Typography -*/
