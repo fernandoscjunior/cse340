@@ -1,6 +1,127 @@
-/******* Change Box Model ***************/
+:root {
+  /* Color pallete */
+  --black : black;
+  --white : white;
+  --aqua : rgb(23, 183, 207);
+  --aqua-fade: rgba(240, 248, 255, 0.585);
+
+  /*- Typography -*/
+  --big-font : Arial;
+}
+
+/* Change Box Model */
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+/*- Header -*/
+
+#top-header {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 2.5fr 1fr;
+  min-height: 30px;
+  & .siteName {
+    text-align: start;
+  }
+  & #tools {
+    text-align: end;
+  }
+}
+
+#top-header .siteName a {
+  font-size: 2.3rem;
+  font-weight: 700;
+  font-family: var(--big-font);
+  text-decoration: none;
+  color: var(--black);
+}
+
+#top-header #tools a {
+  font-family: var(--big-font);
+  text-decoration: none;
+  color: var(--black);
+}
+
+/*- Navigation -*/
+
+nav {  
+    background-color: var(--black);
+    padding: 5px;
+    margin-top: 10px;
+    & ul {
+      display: flex;
+      flex-direction: row;
+      list-style: none;
+      justify-content: space-around;
+      color: var(--white);
+      padding: 10px;
+      font-family: var(--big-font);
+    }
+}
+
+/*- Index (Main) -*/
+
+main {
+  & h1 {
+    padding: 10px;
+    font-family: var(--big-font);
+    font-size: larger;
+  }
+
+  & .delorean {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    
+    & img {
+      display: block;
+      width: 23em;
+      height: auto;
+    }
+
+    & .box {
+      position: absolute;
+      display: grid;
+      grid-column: 1fr;
+      grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+      max-width: 190px;
+      background-color: var(--aqua-fade);
+      border-radius: 10px;
+      font-family: var(--big-font);
+      color: var(--aqua);
+      left: 5%;
+      top: 10%;
+      z-index: 1;
+
+      & button {
+        background-color: var(--aqua);
+        border: none;
+        font-family: var(--big-font);
+        font-size: larger;
+        border-radius: 10px;
+      }
+    }
+  }
+
+  & .reviews {
+    display: flex;
+    flex-direction: column;
+    & h2 {
+      font-family: var(--big-font);
+      padding: 5px;
+    }
+    & ul {
+      padding: 5px;
+      padding-left: 20px;
+      & li {
+        font-family: var(--big-font);
+        padding-bottom: 5px;
+      }
+    }
+  }
 }
