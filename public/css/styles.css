@@ -237,7 +237,7 @@ footer {
     position: relative; 
     & img {
       display: block;
-      width: 30em;
+      width: 100%;
       height: auto;
     }
   }
