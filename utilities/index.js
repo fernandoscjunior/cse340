@@ -57,6 +57,32 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
+
+//  Build the vehicle view
+Util.buildVehicleCard = async function(data){
+  let card
+  if(data.length > 0){
+    card = '<div class="vehicle">'
+      data.forEach(vehicle => {
+      card += '<div>'
+        card += '<h2>' + vehicle.inv_make + '</h2>'
+        card += '<img src="' + vehicle.inv_image + '" alt="An image of the ' + vehicle.inv_model + ' car">'
+      card += '</div>'
+      card += '<div class="info">'
+        card += '<p>' + vehicle.inv_description + '</p>'
+        card += '<p> Year: ' + vehicle.inv_year + '</p>'
+        card += '<p> Price: ' + vehicle.inv_price + '</p>'
+        card += '<p> Miles: ' + vehicle.inv_miles + '</p>'
+        card += '<p> Color: ' + vehicle.inv_color + '</p>'
+      card += '</div>'
+      })
+    card += '</div>'
+  } else {
+    card += '<p class="notice">Sorry, no matching vehicle could be found.</p>'
+  }
+  return card
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
