@@ -303,7 +303,7 @@ footer {
   main {
     & .delorean {
       & img {
-        width: 33em;
+        width: 100%;
       }
       & .box {
         min-width: 230px;

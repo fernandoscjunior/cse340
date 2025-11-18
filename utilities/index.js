@@ -1,6 +1,8 @@
 const invModel = require("../models/inventory-model") //Connecting to model(database)
 const Util = {} //creates an Util object/array
 
+const USDollar = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
@@ -71,7 +73,7 @@ Util.buildVehicleCard = async function(data){
       card += '<div class="info">'
         card += '<p>' + vehicle.inv_description + '</p>'
         card += '<p> Year: ' + vehicle.inv_year + '</p>'
-        card += '<p> Price: ' + vehicle.inv_price + '</p>'
+        card += '<p> Price: ' + USDollar.format(vehicle.inv_price) + '</p>'
         card += '<p> Miles: ' + vehicle.inv_miles + '</p>'
         card += '<p> Color: ' + vehicle.inv_color + '</p>'
       card += '</div>'
