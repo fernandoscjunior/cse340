@@ -2,7 +2,7 @@
   /* Color pallete */
   --black : #252323;
   --white : #FFFeff;
-  --aqua : #06bd8f;
+  --aqua : #595959;
   --aqua-fade: rgba(240, 248, 255, 0.585);
 
   /*- Typography -*/
@@ -124,6 +124,7 @@ main {
       z-index: 1;
       & button {
         background-color: var(--aqua);
+        color: var(--white);
         border: none;
         font-family: var(--big-font);
         font-size: larger;
