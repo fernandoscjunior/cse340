@@ -98,7 +98,12 @@ main {
   & h1 {
     padding: 10px;
     font-family: var(--big-font);
-    font-size: larger;
+    font-size: x-large;
+  }
+  & ul li {
+    margin-left: 20px;
+    color: red;
+    font-family: var(--big-font);
   }
   & .delorean {
     display: flex;
@@ -204,6 +209,57 @@ main {
   }
 }
 
+.form {
+  display: flex;
+  justify-content: center;
+  & form {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    margin: 10px 10px 10px 10px;
+    background-color: var(--aqua);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    & a {
+      text-decoration: none;
+      color: var(--white);
+      font-family: var(--big-font);
+      font-size: large;
+      padding: 10px 0px 0px 10px;
+    }
+    & p {
+      padding: 5px;
+      color: var(--white);
+      font-family: var(--big-font);
+    }
+    & label {
+      padding: 10px 0px 0px 10px;
+      font-family: var(--big-font);
+      color: var(--white);
+    }
+    & #email, #password, #first-name, #last-name {
+      min-height: 25px;
+      border-radius: 5px;
+      border: none;
+    }
+    & #submit {
+      cursor: pointer;
+      background-color: var(--white);
+      border-radius: 5px;
+      border: none;
+      margin-top: 15px;
+      padding: 10px;
+      font-family: var(--big-font);
+      color: var(--black);
+      font-size: medium;
+      &:hover {
+        color: var(--white);
+        background-color: var(--black);
+      }
+    }
+  }
+}
 
 /*- Footer -*/
 footer {
@@ -220,13 +276,16 @@ footer {
   }
   #wrapper {
     display: grid;
-    margin: 15px 100px 0px 100px;
+    margin: 15px 50px 0px 50px;
     padding: 10px;
     border: 5px solid var(--aqua);
     border-radius: 15px;
     background-color: var(--white);
   }
  main {
+  & h1 {
+    font-size: xx-large;
+  }
   & .vehicle {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -237,7 +296,7 @@ footer {
     position: relative; 
     & img {
       display: block;
-      width: 30em;
+      width: 100%;
       height: auto;
     }
   }
@@ -288,13 +347,21 @@ footer {
       }
     }
   }
+  & .form {
+    & form {
+      text-align: start;
+      justify-content: space-evenly;
+      width: 65%;
+      height:300px;
+    }
+  }
  }
 }
 
 @media only screen and (min-width: 50em) {
   #wrapper {
     display: grid;
-    margin: 15px 200px 15px 200px;
+    margin: 15px 70px 15px 70px;
     padding: 10px;
     border: 5px solid var(--aqua);
     border-radius: 15px;
@@ -303,7 +370,7 @@ footer {
   main {
     & .delorean {
       & img {
-        width: 100%;
+        width: 70%;
       }
       & .box {
         min-width: 230px;
@@ -322,5 +389,13 @@ footer {
         padding: 10px;
       }
     }
+    & .form {
+      justify-content: center;
+      & form {
+        text-align: start;
+        width: 40%;
+        height:100%;
+      }
+  }
   }
 }
