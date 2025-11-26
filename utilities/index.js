@@ -1,5 +1,6 @@
 const invModel = require("../models/inventory-model") //Connecting to model(database)
 const Util = {} //creates an Util object/array
+const USDollar = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
 const USDollar = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
