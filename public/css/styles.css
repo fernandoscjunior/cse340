@@ -100,10 +100,12 @@ main {
     font-family: var(--big-font);
     font-size: x-large;
   }
-  & ul li {
-    margin-left: 20px;
+  & ul {
+    & .notice {
+      margin-left: 20px;
     color: red;
     font-family: var(--big-font);
+    }
   }
   & .delorean {
     display: flex;
@@ -207,6 +209,11 @@ main {
       font-family: var(--big-font);
     }
   }
+  & .mngm-links {
+    margin-left: 15px;
+    font-size: larger;
+    font-family: var(--big-font);
+  }
 }
 
 .form {
@@ -233,15 +240,34 @@ main {
       color: var(--white);
       font-family: var(--big-font);
     }
+    & textarea {
+      min-height: 100px;
+      max-height: 300px;
+      min-width: 100%;
+      max-width: 100%;
+      border-radius: 5px;
+      border: none;
+      font-family: var(--big-font);
+    }
     & label {
       padding: 10px 0px 0px 10px;
       font-family: var(--big-font);
       color: var(--white);
     }
-    & #email, #password, #first-name, #last-name {
+    & input, select {
       min-height: 25px;
       border-radius: 5px;
       border: none;
+      padding-left: 5px;
+      font-family: var(--big-font);
+    }
+    & input:required:valid {
+      border-color: green;
+      background-color: #e6ffe6;
+    }
+    & input:required:invalid {
+      border-color: red;
+      background-color: #ffe6e6;
     }
     & #submit {
       cursor: pointer;
@@ -351,8 +377,8 @@ footer {
     & form {
       text-align: start;
       justify-content: space-evenly;
-      width: 65%;
-      height:300px;
+      width: 75%;
+      height: 100%;
     }
   }
  }
@@ -370,7 +396,7 @@ footer {
   main {
     & .delorean {
       & img {
-        width: 33em;
+        width: 60%;
       }
       & .box {
         min-width: 230px;
@@ -393,7 +419,7 @@ footer {
       justify-content: center;
       & form {
         text-align: start;
-        width: 40%;
+        width: 50%;
         height:100%;
       }
   }

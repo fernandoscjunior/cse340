@@ -2,8 +2,6 @@ const invModel = require("../models/inventory-model") //Connecting to model(data
 const Util = {} //creates an Util object/array
 const USDollar = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
-const USDollar = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
-
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
@@ -25,6 +23,20 @@ Util.getNav = async function (req, res, next) {
   })
   list += "</ul>"
   return list
+}
+
+// Get classifications and returns it as am <option> tag
+Util.getClassifications = async function(req, res, next) {
+  let data = await invModel.getClassifications()
+  let option = ""
+  data.rows.forEach((row) => {
+    option += "<option value=\""
+    option += row.classification_id
+    option += '\">'
+    option += row.classification_name
+    option += "</option>"
+  })
+  return option
 }
 
 /* **************************************
@@ -59,7 +71,6 @@ Util.buildClassificationGrid = async function(data){
   }
   return grid
 }
-
 
 //  Build the vehicle view
 Util.buildVehicleCard = async function(data){

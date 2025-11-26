@@ -1,0 +1,44 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+    } %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<div class="form">
+    <form action="/inv/inventory/" method="post">
+        <label for="classification">Classification:</label>
+        <select id="classification" name="classification_id" required>
+            <%- classification %>
+        </select>
+        <label for="maker">Maker:</label>
+        <input type="text" id="maker" name="inv_make" required pattern="[A-Za-z]+.{2,}" title="Only normal characters, minimum 3" value="<%= locals.inv_maker %>" placeholder="3 minimum">
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="inv_model" required pattern="[A-Za-z]+.{2,}" title="Only normal characters, minimum 3" value="<%= locals.inv_model %>" placeholder="3 minimum">
+        <label for="description">Description:</label>
+        <textarea id="description" name="inv_description" required value="<%= locals.inv_description %>">
+        </textarea>
+        <label for="img-path">Image Path:</label>
+        <input type="text" id="img-path" name="inv_image" required placeholder="/images/vehicle/no-image.png">
+        <label for="thumbnail">Thumbnail Path:</label>
+        <input type="text" id="thumbnail" name="inv_thumbnail" required placeholder="/images/vehicle/no-image.png">
+        <label for="year">Year:</label>
+        <input type="text" id="year" name="inv_year" required pattern="[0-9].{3,3}" title="Only numbers and 4-digits" value="<%= locals.inv_year %>" placeholder="4-digits">
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="inv_price" required pattern="[0-9]+" title="Only numbers" value="<%= locals.inv_price %>" >
+        <label for="miles">Miles:</label>
+        <input type="text" id="miles" name="inv_miles" required pattern="[0-9]+" title="Only numbers" value="<%= locals.inv_miles %>" placeholder="digits only">
+        <label for="color">Color:</label>
+        <input type="text" id="color" name="inv_color" required pattern="[A-Za-z]+" title="Only alphabetic digits" value="<%= locals.inv_color %>">
+        <input type="submit" id="submit" value="Create">
+    </form>
+</div>
