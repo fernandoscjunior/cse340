@@ -16,6 +16,7 @@ const baseController = require("./controllers/baseController")
 const utilities = require("./utilities/")
 const session = require("express-session")
 const pool = require("./database/")
+const cookieParser = require("cookie-parser")
 
 /* ***********************
  * View Engine and Templates
@@ -48,6 +49,12 @@ app.use(function(req, res, next){
 // JSON Parser Middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+// Cookie parser middleware
+app.use(cookieParser())
+
+// Cookie integration verifyer
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  * Routes

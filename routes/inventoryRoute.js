@@ -33,4 +33,16 @@ router.post("/inventory",
     utilities.handleErrors(invController.registerInventory)
 );
 
+//Route to deliver inventory cars by classification id
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+//Route to deliver edit view based on inventory car id
+router.get("/edit/:inventory_id", utilities.handleErrors(invController.getEditView))
+
+//Route to update vehicle
+router.post("/update/",
+    regValidateInv.vehicleUpdateRules(),
+    regValidateInv.checkUpdateData,
+    utilities.handleErrors(invController.updateInventory))
+
 module.exports = router;

@@ -78,7 +78,6 @@ validate.loginRules = () => {
         minSymbols: 1,
       })
       .withMessage("Password incorrect.")
-      
   ]
 }
 

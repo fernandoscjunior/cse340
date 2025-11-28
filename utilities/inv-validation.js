@@ -61,7 +61,6 @@ validate.vehicleRegistationRules = () => {
       .escape()
       .notEmpty()
       .isLength({ min: 3 })
-      .isAlpha()
       .withMessage("Please provide a model"), 
 
     // Description is required and must be a string
@@ -120,6 +119,98 @@ validate.vehicleRegistationRules = () => {
   ]
 }
 
+// Check if the update data is clean
+validate.vehicleUpdateRules = () => {
+  return [
+    // Classification id is required
+    body("classification_id")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min: 1 })
+      .withMessage("Error in classification."),
+
+    // Maker is required and must be string
+    body("inv_make")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min: 3 })
+      .isAlpha()
+      .withMessage("Please provide a maker"), 
+
+    // Model is required and must be string
+    body("inv_model")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min: 3 })
+      .withMessage("Please provide a model"), 
+
+    // Description is required and must be a string
+    body("inv_description")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please provide a description"),
+
+    // Image path is required and must be a string
+    body("inv_image")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please provide an image path"),
+
+    // Thumbnail path is required and must be a string
+    body("inv_thumbnail")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please provide a thumbnail path"),
+
+    // Year is required and must be a string
+    body("inv_year")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min : 4 }, { max : 4 })
+      .isNumeric()
+      .withMessage("Please provide a year"),
+
+    // Price is required and must be a string
+    body("inv_price")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isNumeric()
+      .withMessage("Please provide a price"),
+    
+    // Miles is required and must be a string
+    body("inv_miles")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isNumeric()
+      .withMessage("Please provide the miles"),
+
+  // Color is required and must be a string
+    body("inv_color")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isAlpha()
+      .withMessage("Please provide a year"),
+    
+  //inv_id must exist
+    body("inv_id")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("inventory ID not found")
+  ]
+}
+
+
 //Validate new vehicle registration
 validate.checkVehRegData = async (req, res, next) => {
   const { classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_year, inv_price, inv_miles, inv_color } = req.body
@@ -143,6 +234,37 @@ validate.checkVehRegData = async (req, res, next) => {
       inv_price,
       inv_miles,
       inv_color
+    })
+    return
+  }
+  next()
+}
+
+//Validate new vehicle update
+validate.checkUpdateData = async (req, res, next) => {
+  const { classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_year, inv_price, inv_miles, inv_color, inv_id } = req.body
+  let errors = []
+  let classification = await utilities.getClassifications()
+  const itemName = `${inv_make} ${inv_model}`
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("./inventory/edit-inventory", {
+      errors,
+      title: "Edit " + itemName,
+      nav,
+      classification,
+      classification_id,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image, 
+      inv_thumbnail,
+      inv_year,
+      inv_price,
+      inv_miles,
+      inv_color,
+      inv_id
     })
     return
   }

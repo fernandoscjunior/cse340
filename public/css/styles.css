@@ -246,8 +246,6 @@ main {
       min-width: 100%;
       max-width: 100%;
       border-radius: 5px;
-      border: none;
-      font-family: var(--big-font);
     }
     & label {
       padding: 10px 0px 0px 10px;
@@ -284,6 +282,29 @@ main {
         background-color: var(--black);
       }
     }
+  }
+}
+
+#classification-list {
+  background-color: var(--white);
+  font-family: var(--big-font);
+  font-size: larger;
+  border-radius: 15px;
+  padding: 5px;
+  margin-left: 5px;
+}
+
+#inventoryDisplay {
+  margin-top: 10px;
+  margin-left: 15px;
+  background-color: var(--white);
+  font-family: var(--big-font);
+  font-size: larger;
+  padding: 5px;
+  text-decoration: dotted;
+  & a {
+    color: var(--aqua);
+    padding: 5px;
   }
 }
 
