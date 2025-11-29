@@ -240,6 +240,11 @@ main {
       color: var(--white);
       font-family: var(--big-font);
     }
+    & h3 {
+      padding: 5px;
+      color: var(--white);
+      font-family: var(--big-font);
+    }
     & textarea {
       min-height: 100px;
       max-height: 300px;

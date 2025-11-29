@@ -2,6 +2,7 @@ const invModel = require("../models/inventory-model") //Connecting to model(data
 const Util = {} //creates an Util object/array
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
+const cookieParser = require('cookie-parser')
 
 const USDollar = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
 
@@ -131,6 +132,53 @@ Util.checkJWTToken = (req, res, next) => {
     next()
   } else {
     req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+ }
+
+ // Checks credential
+ Util.checkCredentials = (req, res, next) => {
+  if (res.locals.loggedin) {
+    const cookie = req.cookies.jwt
+    const test = jwt.verify(cookie, process.env.ACCESS_TOKEN_SECRET)
+    if (test.account_type == "Admin" || test.account_type == "Employee") {
+      next()
+    } else {
+    req.flash("notice", "You can't access this page.")
+    return res.redirect("/account/login")
+    } 
+  } else {
+    req.flash("notice", "You can't access this page.")
+    return res.redirect("/account/login")
+  }
+ }
+
+ // Checks account type
+ Util.checkAccountType = (req, res, next) => {
+  if (res.locals.loggedin) {
+    const cookie = req.cookies.jwt
+    const test = jwt.verify(cookie, process.env.ACCESS_TOKEN_SECRET)
+    if (test.account_type == "Admin") {
+      res.locals.userType = 1
+      res.locals.username = test.account_firstname
+      res.locals.id = test.account_id
+      next()
+    } else if (test.account_type == "Employee") {
+      res.locals.userType = 2
+      res.locals.username = test.account_firstname
+      res.locals.id = test.account_id
+      next()
+    } else if (test.account_type == "Client") {
+      res.locals.userType = 3
+      res.locals.username = test.account_firstname
+      res.locals.id = test.account_id
+      next()
+    } else {
+      req.flash("notice", "An error occurred.")
+      return res.redirect("/account/login")
+    }
+  } else {
+    req.flash("notice", "You can't access this page.")
     return res.redirect("/account/login")
   }
  }

@@ -38,6 +38,23 @@ accountCont.deliverManagement = async function (req, res, next) {
   })
 }
 
+// Deliver update view
+accountCont.deliverUpdate = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  const user_id = req.params.id
+  const test = await accountModel.getAccountById(user_id)
+  res.render("account/edit-account", {
+    title : "Account update",
+    nav,
+    user_id,
+    user_firstname : test.account_firstname,
+    user_lastname : test.account_lastname,
+    user_email : test.account_email,
+    user_password : test.account_password,
+    errors : null
+  })
+}
+
 /* ****************************************
 *  Process Registration
 * *************************************** */
@@ -84,6 +101,88 @@ accountCont.registerAccount = async function (req, res) {
       errors: null,
     })
   }
+}
+
+//Process account update
+accountCont.accountUpdate = async function (req, res) {
+  let nav = await utilities.getNav()
+  const { account_firstname, account_lastname, account_email, account_id } = req.body
+  const updResult = await accountModel.updateAccount(account_firstname, account_lastname, account_email, account_id)
+  if (updResult) {
+    req.flash(
+      "notice",
+      `Congratulations, you\'ve updated your information`
+    )
+    res.status(201).render("account/management", {
+      title: "Account Management",
+      nav,
+      id : account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+      errors: null,
+    })
+  } else {
+    req.flash("notice", "Sorry, the update failed.")
+    res.status(501).render("account/edit-account", {
+      title: "Account Update",
+      nav,
+      errors: null,
+    })
+  }
+}
+
+// Update account password
+accountCont.passwordUpdate = async function (req, res) {
+  let nav = await utilities.getNav()
+  const { account_password, account_id } = req.body
+  // Hash the password before storing
+  let hashedPassword
+  try {
+    // regular password and cost (salt is generated automatically)
+    hashedPassword = await bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+    req.flash("notice", 'Sorry, there was an error processing the update.')
+    res.status(500).render("account/edit-account", {
+      title: "Account Update",
+      nav,
+      errors: null,
+    })
+  }
+
+  const updResult = await accountModel.updatePassword(hashedPassword, account_id)
+
+  if (updResult) {
+    req.flash(
+      "notice",
+      `Congratulations, you have altered your password`
+    )
+    res.status(201).render("account/management", {
+      title: "Account Management",
+      nav,
+      id : account_id,
+      errors: null,
+    })
+  } else {
+    req.flash("notice", "Sorry, the password update failed.")
+    res.status(501).render("account/edit-account", {
+      title: "Account Update",
+      nav,
+      errors: null,
+    })
+  }
+}
+
+// Logout process
+accountCont.logout = async function(req, res, render) {
+  let nav = await utilities.getNav()
+  res.clearCookie('jwt');
+  res.clearCookie('sessionId');
+  res.render("account/logout", {
+    title : "You were logged out successfully",
+    nav,
+    errors: null
+  })
 }
 
 /* ****************************************

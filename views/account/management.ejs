@@ -14,4 +14,10 @@
  </ul>
 <% } %>
 
-<h2>You are logged in</h2>
+<h2>Welcome <%- locals.username %></h2>
+<a href="/account/update/<%- locals.id %>">Update account information</a>
+
+<% if (locals.userType == 1 || locals.userType == 2) { %>
+  <h3>Inventory management</h3>
+  <a href="/inv/"><u>Access management page</u></a>
+<% } %>
