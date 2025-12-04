@@ -4,9 +4,10 @@
   </span>
   <div id="tools">
     <% if (locals.loggedin) { %>
-      <a href="/account/">Welcome! <u>account settings</u></a>
+      <a href="/account/cart/"><img src="../../images/site/shopping-cart.svg" alt="shopping-cart icon" width="25px" height="100%"></a>
+      <a href="/account/">Welcome! <br><u>account settings</u></a>
       <a href="/account/logout/">Logout</a>
-    <% } else {%>
+    <% } else { %>
       <a title="Click to log in" href="/account/login">My Account</a>
     <% } %>
   </div>

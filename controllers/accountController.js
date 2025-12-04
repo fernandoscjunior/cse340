@@ -2,6 +2,7 @@ const utilities = require("../utilities/")
 const accountModel = require("../models/account-model")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken") 
+const Util = require("../utilities/")
 require("dotenv").config()
 
 const accountCont = {}
@@ -53,6 +54,87 @@ accountCont.deliverUpdate = async function (req, res, next) {
     user_password : test.account_password,
     errors : null
   })
+}
+
+//Delivers cart view
+accountCont.deliverCart = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  const user_id = res.locals.id
+  const cart = await accountModel.getCart(user_id)
+  const classification_grid = await utilities.buildCart(cart)
+  if (classification_grid) {
+    res.render("account/cart", {
+    title : "Your cart",
+    nav,
+    errors : null,
+    classification_grid
+  })
+  } else {
+    req.flash("notice", "Your cart is empty")
+    res.render("account/cart", {
+    title : "Your cart",
+    nav,
+    errors : null,
+    classification_grid
+  })
+  }
+
+}
+
+// Adds vehicle to the cart if user is logged in
+accountCont.deliverAddCart = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  if (res.locals.loggedin) {
+    const id = res.locals.id
+    const inv_id = req.params.inv_id
+    const result = await accountModel.addCart(id, inv_id)
+    if (result) {
+      req.flash("notice", "The car was added to your cart")
+      res.render("account/management", {
+      title : "Account Manager",
+      nav, 
+      errors : null
+    })
+    } else {
+      req.flash("notice", "The insert failed")
+    }
+
+  } else {
+    req.flash("notice", "You have to login to add cars to the cart")
+    res.render("account/login", {
+    title : "Login",
+    nav, 
+    errors : null
+  })
+  }
+}
+
+// Deletes selected car from cart
+accountCont.deleteCart = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  const inv_id = req.params.inv_id
+  const id = res.locals.id
+  const cart = await accountModel.getCart(id)
+  const classification_grid = await utilities.buildCart(cart)
+
+  const result = await accountModel.deleteCart(id, inv_id)
+  if (result) {
+    req.flash("notice", "The vehicle was removed from your cart")
+    res.render("account/management", {
+    title : "Account Manager",
+    nav,
+    errors : null,
+    classification_grid
+  })
+  } else {
+    req.flash("notice", "An error occured")
+    res.render("account/cart", {
+    title : "Your cart",
+    nav,
+    errors : null,
+    classification_grid
+    })
+  }
 }
 
 /* ****************************************

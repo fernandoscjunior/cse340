@@ -246,3 +246,12 @@ WHERE classification_name = 'Sport';
 UPDATE public.inventory
 SET inv_image = REPLACE(inv_image, 'images/', 'images/vehicles/'), 
 inv_thumbnail = REPLACE(inv_thumbnail, 'images/', 'images/vehicles/');
+
+
+--Relationship between account and inventory making cart functionallity possible
+CREATE TABLE account_inventory (
+  account_id    int REFERENCES account (account_id) ON UPDATE CASCADE ON DELETE CASCADE
+, inv_id int REFERENCES inventory (inv_id) ON UPDATE CASCADE
+, amount     numeric NOT NULL DEFAULT 1
+, CONSTRAINT account_inv_pkey PRIMARY KEY (account_id, inv_id)  -- explicit pk
+);

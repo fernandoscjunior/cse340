@@ -66,6 +66,8 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", utilities.handleErrors(require("./routes/inventoryRoute")))
 //Account routes
 app.use("/account", utilities.handleErrors(require("./routes/accountRoute")))
+
+
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'We aint selling it'})

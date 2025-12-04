@@ -32,6 +32,7 @@ invCont.buildVehicle = async function (req, res, next) {
     nav,
     card,
     errors: null,
+    inv_id,
   })
 }
 

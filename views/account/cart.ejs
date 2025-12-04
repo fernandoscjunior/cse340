@@ -1,4 +1,3 @@
-<!--The content Heading-->
 <% if (title) { %>
     <h1><%= title %></h1>
 <% } else {
@@ -15,4 +14,6 @@
  </ul>
 <% } %>
 
-<%- grid %>
+<% if (classification_grid != false) { %>
+  <%- classification_grid %>
+<% } %>

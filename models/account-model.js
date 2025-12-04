@@ -81,4 +81,38 @@ async function getAccountById(user_id) {
   }
 }
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount, updatePassword, checkExistingDiffEmail};
+async function addCart(id, inv_id) {
+  try {
+    const result = await pool.query(
+      'INSERT INTO account_inventory (account_id, inv_id) VALUES ($1, $2);',
+      [id, inv_id])
+    return result.rowCount
+
+  } catch (error) {
+    return new Error("No matching user found")
+  }
+}
+
+async function getCart(id) {
+  try {
+    const result = await pool.query(
+      'SELECT * FROM inventory i JOIN account_inventory ai ON i.inv_id = ai.inv_id WHERE ai.account_id = $1;',
+      [id])
+      return result.rows
+  } catch (error) {
+    return new Error("No macthing user found")
+  }
+}
+
+async function deleteCart(id, inv_id) {
+  try {
+    const result = await pool.query(
+      'DELETE FROM account_inventory WHERE account_id = $1 AND inv_id = $2',
+      [id, inv_id])
+      return result.rowCount
+  } catch (error) {
+    return new Error("No macthing vehicle found")
+  }
+}
+
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount, updatePassword, checkExistingDiffEmail, addCart, getCart, deleteCart};
